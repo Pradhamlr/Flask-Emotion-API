@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import pipeline
+import os
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for cross-origin requests
@@ -43,5 +44,7 @@ def analyze():
         "emoji": emoji
     })
 
+PORT = int(os.environ.get("PORT", 10000))
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=PORT, debug=True)
