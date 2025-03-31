@@ -20,6 +20,15 @@ emoji_map = {
     "neutral": "😐"
 }
 
+@app.route('/ping', methods=['GET'])
+def ping():
+    return "pong", 200  # Simple health check without logging
+
+@app.before_request
+def before_request():
+    if request.path != "/ping":  # Exclude pings from logging
+        print(f"Request received: {request.method} {request.path}")
+
 @app.route('/analyze', methods=['POST'])
 def analyze():
     data = request.json
